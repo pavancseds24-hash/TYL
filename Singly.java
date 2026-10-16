@@ -1,14 +1,16 @@
+
 class Singly{
     class Node{
         Node next;
-        int val;
-        Node(int d){
+        Object val;
+        Node(Object d){
             this.val = d;
             this.next = null;
         }
     }
     Node head = null;
-    void addf(int d){
+
+    void addf(Object d){
         Node n = new Node(d);
         if(head == null){
             head = n;
@@ -19,7 +21,7 @@ class Singly{
         }
     }
 
-    void addl(int d){
+    void addl(Object d){
         Node n = new Node(d);
         if(head == null){
             head = n;
@@ -33,7 +35,7 @@ class Singly{
         }
     }
 
-    void addb(int d, int pos) {
+    void addb(Object d, int pos) {
         if (pos < 1) {
             System.out.println("Invalid Position!!");
             return;
@@ -105,6 +107,16 @@ class Singly{
         temp.next = temp.next.next;
     }
 
+    int length(){
+        int count = 0;
+        Node temp = head;
+        while(temp != null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
     void display(){
         if(head == null){
             System.out.println("LL is Empty!!");
@@ -117,18 +129,22 @@ class Singly{
         }
         System.out.println();
     }
+
     public static void main(String[] args) {
         Singly s = new Singly();
         s.display();
         s.addf(10);
-        s.addl(30);
-        s.addb(20, 2);
+        s.addl("Hello");
+        s.addb(20.5, 2);
+        s.addl(true);
         s.display();
+        System.out.println("Length: " + s.length());
         s.delb(2);
         s.display();
         s.delf();
         s.display();
         s.dell();
         s.display();
+        System.out.println("Length: " + s.length());
     }
 }

@@ -1,16 +1,18 @@
+
 public class Doubly {
     class Node{
         Node prev;
-        int val;
+        Object val;
         Node next;
-        Node(int d){
+        Node(Object d){
             this.prev = null;
             this.val = d;
             this.next = null;
         }
     }
     Node head = null;
-    void addf(int d){
+
+    void addf(Object d){
         Node n = new Node(d);
         if(head == null){
             head = n;
@@ -22,7 +24,7 @@ public class Doubly {
         }
     }
 
-    void addl(int d){
+    void addl(Object d){
         Node n = new Node(d);
         if(head == null){
             head = n;
@@ -36,31 +38,30 @@ public class Doubly {
         n.prev = temp;
     }
 
-    void addb(int d,int pos){
-        Node n = new Node(d);
+    void addb(Object d,int pos){
         if(pos < 1){
             System.out.println("Invalid POS!!");
             return;
         }
         if(pos == 1){
             addf(d);
+            return;
         }
-        else{
-            Node temp = head;
-            for(int i=1;i<pos-1 && temp != null; i++){
-                temp = temp.next;
-            }
-            if(temp == null){
-                System.out.println("Invalid POS!!");
-                return;
-            }
-            n.next = temp.next;
-            n.prev = temp;
-            if(temp.next != null){
-                temp.next.prev = n;
-            }
-            temp.next = n;
+        Node temp = head;
+        for(int i=1;i<pos-1 && temp != null; i++){
+            temp = temp.next;
         }
+        if(temp == null){
+            System.out.println("Invalid POS!!");
+            return;
+        }
+        Node n = new Node(d);
+        n.next = temp.next;
+        n.prev = temp;
+        if(temp.next != null){
+            temp.next.prev = n;
+        }
+        temp.next = n;
     }
 
     void delf(){
@@ -75,7 +76,7 @@ public class Doubly {
         head.next.prev = null;
         head = head.next;
     }
-    
+
     void dell(){
         if(head == null){
             System.out.println("LL is empty!!");
@@ -93,8 +94,7 @@ public class Doubly {
         temp.prev = null;
     }
 
-    
-void delb(int pos){
+    void delb(int pos){
         if(pos < 1){
             System.out.println("Invalid POS!!");
             return;
@@ -122,6 +122,17 @@ void delb(int pos){
         temp.prev = null;
         temp.next = null;
     }
+
+    int length(){
+        int count = 0;
+        Node temp = head;
+        while(temp != null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
     void display(){
         if(head == null){
             System.out.println("LL is Empty!!");
@@ -139,12 +150,16 @@ void delb(int pos){
         Doubly d = new Doubly();
         d.display();
         d.addf(10);
-        d.addl(30);
-        d.addb(20, 2);
+        d.addl("Hello");
+        d.addb(20.5, 2);
+        d.addl(true);
         d.display();
+        System.out.println("Length: " + d.length());
         d.delb(2);
+        d.display();
         d.delf();
         d.dell();
         d.display();
+        System.out.println("Length: " + d.length());
     }
 }

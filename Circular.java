@@ -1,15 +1,16 @@
 
 public class Circular {
     class Node{
-        int val;
+        Object val;
         Node next;
-        Node(int d){
+        Node(Object d){
             this.val = d;
             this.next = null;
         }
     }
     Node head = null;
-    void addf(int d){
+
+    void addf(Object d){
         Node n = new Node(d);
         if(head == null){
             head = n;
@@ -26,7 +27,7 @@ public class Circular {
         }
     }
 
-    void addl(int d){
+    void addl(Object d){
         Node n = new Node(d);
         if(head == null){
             head = n;
@@ -41,7 +42,7 @@ public class Circular {
         n.next = head;
     }
 
-    void addb(int d,int pos){
+    void addb(Object d,int pos){
         if(pos < 1){
             System.out.println("Invalid POS!!");
             return;
@@ -50,11 +51,15 @@ public class Circular {
             addf(d);
             return;
         }
+        if(head == null){
+            System.out.println("Invalid POS!!");
+            return;
+        }
         Node temp = head;
         for(int i=1;i<pos-1 && temp.next != head; i++){
             temp = temp.next;
         }
-        if(temp.next == head && pos > 2){
+        if(temp.next == head && pos > length()){
             System.out.println("Invalid POS!!");
             return;
         }
@@ -120,6 +125,19 @@ public class Circular {
         temp.next = temp.next.next;
     }
 
+    int length(){
+        if(head == null){
+            return 0;
+        }
+        int count = 0;
+        Node temp = head;
+        do{
+            count++;
+            temp = temp.next;
+        }while(temp != head);
+        return count;
+    }
+
     void display(){
         if(head == null){
             System.out.println("LL is Empty!!");
@@ -137,14 +155,17 @@ public class Circular {
         Circular c = new Circular();
         c.display();
         c.addf(10);
-        c.addl(30);
-        c.addb(20, 2);
+        c.addl("Hello");
+        c.addb(20.5, 2);
+        c.addl(true);
         c.display();
+        System.out.println("Length: " + c.length());
         c.delb(2);
         c.display();
         c.delf();
         c.display();
         c.dell();
         c.display();
+        System.out.println("Length: " + c.length());
     }
 }
